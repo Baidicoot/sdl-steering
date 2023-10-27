@@ -7,12 +7,14 @@ if __name__ == "__main__":
     parser.add_argument("--model", type=str, default="EleutherAI/pythia-70m-deduped")
     parser.add_argument("--n_chunks", type=int, default=1)
     parser.add_argument("--skip_chunks", type=int, default=0)
-    parser.add_argument("--chunk_size_acts", type=int, default=64 * 1024)
+    parser.add_argument("--chunk_size_acts", type=int, default=1024 * 1024)
+    parser.add_argument("--max_length", type=int, default=1024)
+    parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--dataset", type=str, default="NeelNanda/pile-10k")
     parser.add_argument("--layers", type=int, nargs="+", default=[2])
     parser.add_argument("--locations", type=str, nargs="+", default=[])
     parser.add_argument("--dataset_folder", type=str, default="activation_data")
-    parser.add_argument("--device", type=str, default=None)
+    parser.add_argument("--device", type=str, default="cuda")
 
     args = parser.parse_args()
 
@@ -36,4 +38,6 @@ if __name__ == "__main__":
         args.n_chunks,
         skip_chunks=args.skip_chunks,
         device=args.device,
+        max_length=args.max_length,
+        model_batch_size=args.batch_size,
     )

@@ -7,7 +7,7 @@ from typing import List, Optional, Union
 
 def load_vastnode_info():
     """Load the vastnode info from the json file."""
-    with open(".vastnode", "r") as f:
+    with open("secrets/.vastnode", "r") as f:
         vastnode_info = json.load(f)
     return vastnode_info
 
@@ -73,7 +73,7 @@ def copy_models():
 
 def copy_secrets():
     """Copy the secrets.json file from local directory to the remote host."""
-    command = f"scp -P {PORT} secrets.json {DEST_ADDR}:{SSH_DIRECTORY}"
+    command = f'rsync -rv -e "ssh -p {PORT}" ./secrets {DEST_ADDR}:{SSH_DIRECTORY}'
     subprocess.call(command, shell=True)
 
 
