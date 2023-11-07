@@ -103,7 +103,7 @@ def setup():
     sync()
     copy_models()
     copy_secrets()
-    command = f'ssh -p {PORT} {DEST_ADDR} "cd {SSH_DIRECTORY} && sudo apt -y install python3.9 python3.9-venv && python3.9 -m venv .env --system-site-packages && source .env/bin/activate && pip install -r requirements.txt"'
+    command = f'ssh -p {PORT} {DEST_ADDR} "cd {SSH_DIRECTORY} && sudo apt -y update && sudo apt -y upgrade && sudo apt -y install wget build-essential libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev && sudo add-apt-repository -y ppa:deadsnakes/ppa && sudo apt -y install python3.11 python3.11-venv && python3.11 -m venv .env --system-site-packages && source .env/bin/activate && pip install -r requirements.txt"'
     # command = f"ssh -p {VAST_PORT} {dest_addr} \"cd {SSH_DIRECTORY} && echo $PATH\""
     subprocess.call(command, shell=True)
 
